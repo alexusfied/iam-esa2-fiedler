@@ -5,6 +5,8 @@
  */
 import {mwf} from "vfh-iam-mwf-base";
 import {GenericDialogTemplateViewController} from "vfh-iam-mwf-base";
+import ListviewViewController from "./controller/ListviewViewController";
+import ReadviewViewController from "./controller/ReadviewViewController";
 
 /* application libraries: the main application class */
 import MyApplication from "./MyApplication.js";
@@ -20,8 +22,10 @@ mwf.app.components = {
     GenericDialogTemplateViewController,
     /* application modules */
     MyApplication,
-    MyInitialViewController
+    MyInitialViewController,
     // TODO-REPEATED: export any further view controllers here
+    ListviewViewController,
+    ReadviewViewController
 }
 
 // then start the application
