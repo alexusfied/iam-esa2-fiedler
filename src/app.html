@@ -59,11 +59,19 @@
     </main>
 </div>
 
-<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component"  data-mwf-viewcontroller="GenericDialogTemplateViewController" data-mwf-templatename="mediaItemDialog">
+<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="EditDialogViewController" data-mwf-templatename="mediaItemDialog">
     <main>
         <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>
         <form id="itemEditForm" on-submit="submitForm">
-            <input name="title" autocomplete="off" class="mwf-autofocus" type="text" placeholder="Titel" required="required" value="{{item.title}}">
+            <fieldset class="mwf-material" form="itemEditForm">
+                <legend>Titel</legend>
+                <input name="title" autocomplete="off" class="mwf-autofocus file-input" type="text" required="required" value="{{item.title}}">
+                <label for="file-input" class="mwf-imgbutton mwf-img-disk mwf-right-align file-input-label"></label>
+                <input name="img" type="file" on-change="fileSelected" required="required" id="file-input">
+            </fieldset>
+            <div class="img-upload-placeholder">
+                <img src="{{item.src}}" alt="Media Item image" class="media-item-img-preview" width="100" height="100">
+            </div>
             <div class="mwf-buttonbar">
                 <button class="mwf-left-align mwf-button" disabled="{{#unless item.created}}disabled{{/unless}}" type="button" on-click="deleteItem">Löschen</button>
                 <input class="mwf-button-prio mwf-right-align mwf-button" type="submit" value="{{#if item.created}}Ändern{{else}}Hinzufügen{{/if}}">
