@@ -70,7 +70,9 @@
                 <input name="img" type="file" on-change="fileSelected" required="required" id="file-input">
             </fieldset>
             <div class="img-upload-placeholder">
-                <img src="{{item.src}}" alt="Media Item image" class="media-item-img-preview" width="100" height="100">
+                {{#if item.src}}
+                    <img src="{{item.src}}" class="media-item-img-preview" width="100" height="100" alt="An image uploaded by the user">
+                {{/if}}
             </div>
             <div class="mwf-buttonbar">
                 <button class="mwf-left-align mwf-button" disabled="{{#unless item.created}}disabled{{/unless}}" type="button" on-click="deleteItem">Löschen</button>

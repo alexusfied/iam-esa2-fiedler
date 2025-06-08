@@ -72,7 +72,7 @@ export default class ListviewViewController extends mwf.ViewController {
     }
 
     createNewItem() {
-        var newItem = new entities.MediaItem("m", "https://picsum.photos/100/100");
+        var newItem = new entities.MediaItem("", "");
         this.showDialog("mediaItemDialog", {
             item: newItem,
             actionBindings: {
