@@ -59,6 +59,17 @@
     </main>
 </div>
 
+<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="ConfirmDeletionDialogViewController" data-mwf-templatename="confirmDeletionDialog">
+    <main>
+        <h2>Medium löschen</h2>
+        <p>Möchten Sie das Medium {{item.title}} löschen?</p>
+        <div class="mwf-buttonbar">
+            <button class="mwf-left-align mwf-button" on-click="onDeletionCanceled">Abbrechen</button>
+            <button class="mwf-right-align mwf-button-prio mwf-button" on-click="onDeletionConfirmed">Löschen</button>
+        </div>
+    </main>
+</div>
+
 <div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="EditDialogViewController" data-mwf-templatename="mediaItemDialog">
     <main>
         <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>

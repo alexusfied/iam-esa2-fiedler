@@ -88,8 +88,19 @@ export default class ListviewViewController extends mwf.ViewController {
     }
 
     deleteItem(item) {
-        item.delete().then(() => {
-            this.removeFromListview(item._id);
+        this.showDialog("confirmDeletionDialog", {
+            item: item,
+            actionBindings: {
+                onDeletionConfirmed: (() => {
+                    item.delete().then(() => {
+                        this.removeFromListview(item._id);
+                        this.hideDialog();
+                    });
+                }),
+                onDeletionCanceled: (() => {
+                    this.hideDialog();
+                })
+            }
         });
 
     }
