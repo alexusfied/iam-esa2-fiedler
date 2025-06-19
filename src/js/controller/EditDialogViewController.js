@@ -20,9 +20,13 @@ export default class EditDialogViewController extends GenericDialogTemplateViewC
       event.original.preventDefault();
       if (event.original.target.files[0]) {
         const fileReader = new FileReader();
-        fileReader.readAsDataURL(event.original.target.files[0]);
+        const imageFile = event.original.target.files[0];
+        fileReader.readAsDataURL(imageFile);
         fileReader.onload = () => {
           mediaItem.src = fileReader.result;
+          if (!mediaItem.title) {
+            mediaItem.title = imageFile.name;
+          }
           this.viewProxy.update({item: mediaItem});
         };
       }
