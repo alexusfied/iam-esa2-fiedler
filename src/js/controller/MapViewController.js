@@ -25,9 +25,14 @@ export default class MapViewController extends mwf.ViewController {
   async onresume() {
     await super.onresume();
 
-    const mapController = L.map("maproot");
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(mapController);
-    mapController.setView([51.505, -0.09], 13);
+    const map = L.map("maproot");
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    map.setView([52, 12], 7);
+
+    const mediaItems = await entities.MediaItem.readAll();
+    mediaItems.forEach((mediaItem) => {
+      L.marker(mediaItem.latlng).addTo(map);
+    });
   }
 
 

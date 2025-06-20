@@ -78,9 +78,11 @@ export default class ListviewViewController extends mwf.ViewController {
             actionBindings: {
                 submitForm: ((event) => {
                     event.original.preventDefault();
+
                     newItem.create().then(() => {
                         this.addToListview(newItem);
                     });
+
                     this.hideDialog();
                 })
             }
