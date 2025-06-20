@@ -33,3 +33,8 @@ input[type="file"] {
     filter: unset;
     z-index: 2;
 }
+
+#maproot {
+    width: 100%;
+    height: 100%;
+}
