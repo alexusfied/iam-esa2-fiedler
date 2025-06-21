@@ -18,6 +18,12 @@ export default class ReadviewViewController extends mwf.ViewController {
    */
   async oncreate() {
     // TODO: do databinding, set listeners, initialise the view
+
+    // call the superclass once creation is done
+    super.oncreate();
+  }
+
+  async onresume() {
     var mediaItem = this.args.item;
 
     this.viewProxy = this.bindElement("mediaReadviewTemplate", {
@@ -29,9 +35,7 @@ export default class ReadviewViewController extends mwf.ViewController {
         this.previousView({deletedItem: mediaItem});
       });
     }));
-
-    // call the superclass once creation is done
-    super.oncreate();
+    super.onresume();
   }
 
 

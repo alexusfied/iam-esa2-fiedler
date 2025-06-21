@@ -25,6 +25,8 @@
 <body data-mwf-application="MyApplication" class="mwf-loading-app">
 
 <!-- TODO-REPEATED: add new views here -->
+
+<!-- MEDIA OVERVIEW -->
 <div class="mwf-view" id="mediaOverview" data-mwf-viewcontroller="ListviewViewController">
     <header>
         <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
@@ -46,6 +48,7 @@
     <footer></footer>
 </div>
 
+<!-- MAP -->
 <div class="mwf-view mwf-view-initial" id="map" data-mwf-viewcontroller="MapViewController">
     <header>
         <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
@@ -57,6 +60,7 @@
     <footer></footer>
 </div>
 
+<!-- ITEM MENU -->
 <div data-mwf-templatename="mediaItemMenu" class="mwf-listitem-menu mwf-template mwf-databind mwf-dialog mwf-popup">
     <header>
         <h2 class="mwf-dyncontent">{{title}}{{_id}}</h2>
@@ -69,6 +73,7 @@
     </main>
 </div>
 
+<!-- DELETE CONFIRMATION DIALOG -->
 <div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="GenericDialogTemplateViewController" data-mwf-templatename="confirmDeletionDialog">
     <main>
         <h2>Medium löschen</h2>
@@ -80,6 +85,7 @@
     </main>
 </div>
 
+<!-- EDIT ITEM DIALOG -->
 <div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="EditDialogViewController" data-mwf-templatename="mediaItemDialog">
     <main>
         <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>
@@ -103,10 +109,11 @@
     </main>
 </div>
 
+<!-- READVIEW -->
 <div class="mwf-view" id="mediaReadview" data-mwf-viewcontroller="ReadviewViewController">
     <div class="mwf-template mwf-databind" data-mwf-templatename="mediaReadviewTemplate">
         <header>
-            <button class="mwf-imgbutton mwf-img-sandwich mwf-img-sandwich-action mwf-left-align"></button>
+            <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
             <h1 class="mwf-left-align">{{item.title}}</h1>
             <button class="mwf-imgbutton mwf-img-delete mwf-right-align" on-click="deleteItem"></button>
         </header>
@@ -119,6 +126,7 @@
     </div>
 </div>
 
+<!-- SIDEMENU -->
 <div class="mwf-sidemenu mwf-view-component mwf-initialise-onload mwf-attaching" id="sidemenu" data-mwf-viewcontroller="SidemenuViewController">
     <ul>
         <li class="mwf-li-singletitle mwf-menu-item" data-mwf-id="mainmenu-items" data-mwf-targetview="mediaOverview">

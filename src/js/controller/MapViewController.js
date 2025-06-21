@@ -5,6 +5,8 @@ import {mwf} from "vfh-iam-mwf-base";
 import {mwfUtils} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities.js";
 
+let map;
+
 export default class MapViewController extends mwf.ViewController {
 
   // instance attributes set by mwf after instantiation
@@ -25,14 +27,23 @@ export default class MapViewController extends mwf.ViewController {
   async onresume() {
     await super.onresume();
 
-    const map = L.map("maproot");
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-    map.setView([52, 12], 7);
+    if (!map) {
+      map = L.map("maproot");
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      map.setView([52, 12], 7);
+    }
 
     const mediaItems = await entities.MediaItem.readAll();
     mediaItems.forEach((mediaItem) => {
-      L.marker(mediaItem.latlng).addTo(map);
+      const marker = L.marker(mediaItem.latlng).addTo(map);
+      const popup = document.createElement("div");
+      popup.innerHTML = `<h3>${mediaItem.title}</h3>`;
+      popup.addEventListener("click", () => {
+        this.nextView("mediaReadview", {item: mediaItem});
+      });
+      marker.bindPopup(popup);
     });
+
   }
 
 

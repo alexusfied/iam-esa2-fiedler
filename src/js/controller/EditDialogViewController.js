@@ -32,16 +32,10 @@ export default class EditDialogViewController extends GenericDialogTemplateViewC
 
           const tags = await ExifReader.load(imageFile, {expanded: true});
 
-          const latitude = tags.exif.GPSLatitude.description;
-          const longitude = tags.exif.GPSLongitude.description;
-
-          console.log("LatLong: ", latitude, longitude);
-
-
-          if (latitude && longitude) {
+          if (tags.exif.GPSLatitude && tags.exif.GPSLongitude) {
             mediaItem.latlng = {
-              lat: latitude,
-              lng: longitude
+              lat: tags.exif.GPSLatitude.description,
+              lng: tags.exif.GPSLongitude.description
             };
           } else {
             // Default location info, if the image doesn't contain the info in the metadata
