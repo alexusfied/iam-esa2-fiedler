@@ -48,11 +48,29 @@
     <footer></footer>
 </div>
 
+<!-- READVIEW -->
+<div class="mwf-view" id="mediaReadview" data-mwf-viewcontroller="ReadviewViewController">
+    <div class="mwf-template mwf-databind" data-mwf-templatename="mediaReadviewTemplate">
+        <header>
+            <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
+            <h1 class="mwf-left-align">{{item.title}}</h1>
+            <button class="mwf-imgbutton mwf-img-delete mwf-right-align" on-click="deleteItem"></button>
+        </header>
+        <main class="mwf-scrollview">
+            <img src="{{item.src}}" />
+            <div id="maproot-detail"></div>
+        </main>
+        <footer>
+            <button class="mwf-back mwf-imgbutton mwf-img-backward" on-click="returnToPreviousView"></button>
+        </footer>
+    </div>
+</div>
+
 <!-- MAP -->
 <div class="mwf-view" id="map" data-mwf-viewcontroller="MapViewController">
     <header>
         <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
-        <h1 class="mwf-left-align">Medien</h1>
+        <h1 class="mwf-left-align">Karte</h1>
     </header>
     <main>
         <div id="maproot-main"></div>
@@ -107,24 +125,6 @@
             </div>
         </form>
     </main>
-</div>
-
-<!-- READVIEW -->
-<div class="mwf-view" id="mediaReadview" data-mwf-viewcontroller="ReadviewViewController">
-    <div class="mwf-template mwf-databind" data-mwf-templatename="mediaReadviewTemplate">
-        <header>
-            <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align mwf-img-sandwich-action"></button>
-            <h1 class="mwf-left-align">{{item.title}}</h1>
-            <button class="mwf-imgbutton mwf-img-delete mwf-right-align" on-click="deleteItem"></button>
-        </header>
-        <main class="mwf-scrollview">
-            <img src="{{item.src}}" />
-            <div id="maproot-detail"></div>
-        </main>
-        <footer>
-            <button class="mwf-back mwf-imgbutton mwf-img-backward" on-click="returnToPreviousView"></button>
-        </footer>
-    </div>
 </div>
 
 <!-- SIDEMENU -->
