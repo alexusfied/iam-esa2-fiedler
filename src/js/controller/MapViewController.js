@@ -6,6 +6,8 @@ import {mwfUtils} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities.js";
 
 let map;
+let markerMediaItems = [];
+let markers = {};
 
 export default class MapViewController extends mwf.ViewController {
 
@@ -33,16 +35,7 @@ export default class MapViewController extends mwf.ViewController {
       map.setView([52, 12], 7);
     }
 
-    const mediaItems = await entities.MediaItem.readAll();
-    mediaItems.forEach((mediaItem) => {
-      const marker = L.marker(mediaItem.latlng).addTo(map);
-      const popup = document.createElement("div");
-      popup.innerHTML = `<h3>${mediaItem.title}</h3>`;
-      popup.addEventListener("click", () => {
-        this.nextView("mediaReadview", {item: mediaItem});
-      });
-      marker.bindPopup(popup);
-    });
+    await this.updateMap();
 
   }
 
@@ -51,6 +44,30 @@ export default class MapViewController extends mwf.ViewController {
     super();
 
     console.log("ViewControllerTemplate()");
+  }
+  /*
+  * updates the markers on the map by checking the database and comparing it with the frontend state
+  * */
+  async updateMap() {
+    const mediaItems = await entities.MediaItem.readAll();
+
+    const newMediaItems = mediaItems.filter(mediaItem => !markerMediaItems.includes(mediaItem));
+    newMediaItems.forEach((mediaItem) => {
+      const marker = L.marker(mediaItem.latlng).addTo(map);
+      const popup = document.createElement("div");
+      popup.innerHTML = `<h3>${mediaItem.title}</h3>`;
+      popup.addEventListener("click", () => {
+        this.nextView("mediaReadview", {item: mediaItem});
+      });
+      marker.bindPopup(popup);
+      markerMediaItems.push(mediaItem);
+      markers[mediaItem._id] = marker;
+    });
+
+    const deletedMarkers = markerMediaItems.filter(mediaItem => !mediaItems.includes(mediaItem));
+    deletedMarkers.forEach((mediaItem) => {
+      markers[mediaItem._id].remove();
+    });
   }
 
   /*
