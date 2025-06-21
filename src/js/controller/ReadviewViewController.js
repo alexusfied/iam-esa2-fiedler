@@ -35,6 +35,10 @@ export default class ReadviewViewController extends mwf.ViewController {
         this.previousView({deletedItem: mediaItem});
       });
     }));
+
+    this.viewProxy.bindAction("returnToPreviousView", (() => {
+      this.previousView();
+    }));
     super.onresume();
   }
 

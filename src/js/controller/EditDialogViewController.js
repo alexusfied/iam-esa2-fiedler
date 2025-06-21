@@ -32,7 +32,7 @@ export default class EditDialogViewController extends GenericDialogTemplateViewC
 
           const tags = await ExifReader.load(imageFile, {expanded: true});
 
-          if (tags.exif.GPSLatitude && tags.exif.GPSLongitude) {
+          if (tags.exif && tags.exif.GPSLatitude && tags.exif.GPSLongitude) {
             mediaItem.latlng = {
               lat: tags.exif.GPSLatitude.description,
               lng: tags.exif.GPSLongitude.description
