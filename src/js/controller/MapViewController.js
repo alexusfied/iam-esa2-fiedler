@@ -30,7 +30,7 @@ export default class MapViewController extends mwf.ViewController {
     await super.onresume();
 
     if (!map) {
-      map = L.map("maproot");
+      map = L.map("maproot-main");
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
       map.setView([52, 12], 7);
     }

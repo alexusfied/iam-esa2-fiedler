@@ -24,6 +24,8 @@ export default class ReadviewViewController extends mwf.ViewController {
   }
 
   async onresume() {
+    await super.onresume();
+
     var mediaItem = this.args.item;
 
     this.viewProxy = this.bindElement("mediaReadviewTemplate", {
@@ -39,7 +41,13 @@ export default class ReadviewViewController extends mwf.ViewController {
     this.viewProxy.bindAction("returnToPreviousView", (() => {
       this.previousView();
     }));
-    super.onresume();
+
+    if (mediaItem.latlng) {
+      const map = L.map("maproot-detail");
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      L.marker(mediaItem.latlng).addTo(map);
+      map.setView([mediaItem.latlng.lat, mediaItem.latlng.lng], 12);
+    }
   }
 
 
