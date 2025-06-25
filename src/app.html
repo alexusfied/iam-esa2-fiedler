@@ -111,8 +111,8 @@
             <fieldset class="mwf-material" form="itemEditForm">
                 <legend>Titel</legend>
                 <input name="title" autocomplete="off" class="mwf-autofocus file-input" type="text" required="required" value="{{item.title}}">
-                <label for="file-input" class="mwf-imgbutton mwf-img-disk mwf-right-align file-input-label"></label>
-                <input name="img" type="file" on-change="fileSelected" required="required" id="file-input">
+                <input class="mwf-material-altinput" on-change="fileSelected" type="file" id="fileInput">
+                <label class="mwf-material-altinput mwf-imgbutton mwf-img-camera" for="fileInput"></label>
             </fieldset>
             <div class="img-upload-placeholder">
                 {{#if item.src}}
