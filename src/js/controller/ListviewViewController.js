@@ -4,6 +4,7 @@
 import {mwf} from "vfh-iam-mwf-base";
 import {mwfUtils} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities.js";
+import {LocalFileSystemReferenceHandler} from "../model/LocalFileSystemReferenceHandler";
 
 export default class ListviewViewController extends mwf.ViewController {
 
@@ -76,13 +77,32 @@ export default class ListviewViewController extends mwf.ViewController {
         this.showDialog("mediaItemDialog", {
             item: newItem,
             actionBindings: {
-                submitForm: ((event) => {
+                submitForm: (async (event) => {
                     event.original.preventDefault();
+
+                    if (newItem.remote) {
+                        const uploadData = new FormData();
+                        uploadData.append("imgdata", newItem.imgFile);
+
+                        const response = await fetch("http://localhost:7077/api/upload", {
+                            method: "POST",
+                            body: uploadData
+                        });
+
+                        const responseData = await response.json();
+
+                        delete newItem.imgFile;
+                        newItem.src = "http://localhost:7077/" + responseData.data.imgdata;
+
+                    } else {
+                        const fsHandler = await LocalFileSystemReferenceHandler.getInstance();
+                        newItem.src = await fsHandler.resolveLocalFileSystemReference(newItem.src);
+                        delete newItem.imgFile;
+                    }
 
                     newItem.create().then(() => {
                         this.addToListview(newItem);
                     });
-
                     this.hideDialog();
                 })
             }
