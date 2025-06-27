@@ -49,3 +49,18 @@ header h1 {
     max-width: 70%;
     text-overflow: ellipsis;
 }
+
+.media-overview-footer {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.media-item-filter-radio {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

@@ -23,13 +23,20 @@ export default class ListviewViewController extends mwf.ViewController {
         // TODO: do databinding, set listeners, initialise the view
         this.addNewMediaItemElement = this.root.querySelector("#addNewMediaItem");
 
+        this.root.querySelector("#allItemsFilter").checked = true;
+
+        this.root.querySelectorAll('input[name="mediaItemFilter"]').forEach((mediaItemFilter) => {
+            mediaItemFilter.addEventListener("change", (event) => {
+                this.onMediaItemFilterChanged(event.target);
+            });
+        });
+
         this.addNewMediaItemElement.onclick = (() => {
             this.createNewItem();
         });
 
-        entities.MediaItem.readAll().then((items) => {
-            this.initialiseListview(items);
-        });
+        this.items = await entities.MediaItem.readAll();
+        this.initialiseListview(this.items);
 
         // call the superclass once creation is done
         super.oncreate();
@@ -71,6 +78,20 @@ export default class ListviewViewController extends mwf.ViewController {
         super.bindDialog(dialogid, dialogview, dialogdataobj);
 
         // TODO: implement action bindings for dialog, accessing dialog.root
+    }
+
+    onMediaItemFilterChanged(targetRadioButton) {
+        let filteredItems = [];
+
+        if (targetRadioButton.id === "remoteItemsFilter") {
+            filteredItems = this.items.filter((item) => item.remote);
+        } else if (targetRadioButton.id === "localItemsFilter") {
+            filteredItems = this.items.filter((item) => !item.remote);
+        } else if (targetRadioButton.id === "allItemsFilter") {
+            filteredItems = this.items;
+        }
+
+        this.initialiseListview(filteredItems);
     }
 
     // Returns the URL pointing to the location of the uploaded image
