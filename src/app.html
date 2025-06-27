@@ -38,7 +38,7 @@
             <li class="mwf-listitem mwf-li-title-subtitle mwf-template mwf-databind" data-mwf-templatename="myapp-listitem" data-mwf-targetview="mediaReadview">
                 <img class="mwf-left-align" src="{{src}}" />
                 <div class="mwf-li-titleblock">
-                    <h2>{{title}}{{_id}}</h2>
+                    <h2>{{title}}{{_id}}{{#if remote}} REMOTE{{/if}}</h2>
                     <h3>{{addedDateString}}</h3>
                 </div>
                 <button class="mwf-imgbutton mwf-img-options-vertical mwf-right-align mwf-listitem-menu-control"></button>

@@ -140,6 +140,7 @@ export default class ListviewViewController extends mwf.ViewController {
 
                     delete newItem.imgFile;
                     newItem.create().then(() => {
+                        console.log("Item created", newItem);
                         this.addToListview(newItem);
                     });
                     this.hideDialog();

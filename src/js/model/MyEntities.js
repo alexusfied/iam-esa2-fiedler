@@ -28,14 +28,16 @@ export class MediaItem extends EntityManager.Entity {
     contentType;
     added = Date.now();
     latlng;
+    remote;
     description = "";
 
-    constructor(title, src, contentType, latlng) {
+    constructor(title, src, contentType, latlng, remote) {
         super();
         this.title = title;
         this.src = src;
         this.contentType = contentType;
         this.latlng = latlng;
+        this.remote = remote;
     }
 
     get addedDateString() {
