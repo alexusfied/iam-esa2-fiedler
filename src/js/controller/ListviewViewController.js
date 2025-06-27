@@ -5,6 +5,7 @@ import {mwf} from "vfh-iam-mwf-base";
 import {mwfUtils} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities.js";
 import {LocalFileSystemReferenceHandler} from "../model/LocalFileSystemReferenceHandler";
+import ExifReader from "exifreader";
 
 export default class ListviewViewController extends mwf.ViewController {
 
@@ -91,15 +92,28 @@ export default class ListviewViewController extends mwf.ViewController {
 
                         const responseData = await response.json();
 
-                        delete newItem.imgFile;
                         newItem.src = "http://localhost:7077/" + responseData.data.imgdata;
 
                     } else {
                         const fsHandler = await LocalFileSystemReferenceHandler.getInstance();
                         newItem.src = await fsHandler.resolveLocalFileSystemReference(newItem.src);
-                        delete newItem.imgFile;
                     }
 
+                    const tags = await ExifReader.load(newItem.imgFile, {expanded: true});
+                    if (tags.exif && tags.exif.GPSLatitude && tags.exif.GPSLongitude) {
+                        newItem.latlng = {
+                            lat: tags.exif.GPSLatitude.description,
+                            lng: tags.exif.GPSLongitude.description
+                        };
+                    } else {
+                        // Default location info, if the image doesn't contain the info in the metadata
+                        newItem.latlng = {
+                            lat: 52.416,
+                            lng: 12.55
+                        };
+                    }
+
+                    delete newItem.imgFile;
                     newItem.create().then(() => {
                         this.addToListview(newItem);
                     });
