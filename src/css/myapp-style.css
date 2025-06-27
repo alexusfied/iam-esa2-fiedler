@@ -64,3 +64,12 @@ header h1 {
     align-items: center;
     gap: 5px;
 }
+
+.media-item-remote-icon {
+    background-image: url("../assets/img/cloud_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
