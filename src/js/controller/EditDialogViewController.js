@@ -15,6 +15,10 @@ export default class EditDialogViewController extends GenericDialogTemplateViewC
     const mediaItem = this.args.item;
     const fsHandler = await LocalFileSystemReferenceHandler.getInstance();
 
+    if (mediaItem.remote) {
+      this.root.querySelector("#remoteSaveCheckbox").checked = true;
+    }
+
     this.viewProxy = this.bindElement("mediaItemDialog", {
       item: mediaItem,
     }, this.root).viewProxy;
