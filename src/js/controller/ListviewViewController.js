@@ -73,8 +73,23 @@ export default class ListviewViewController extends mwf.ViewController {
         // TODO: implement action bindings for dialog, accessing dialog.root
     }
 
+    // Returns the URL pointing to the location of the uploaded image
+    async uploadImageToRemoteStorage(imgFile) {
+        const uploadData = new FormData();
+        const baseURL = "http://localhost:7077/";
+        uploadData.append("imgdata", imgFile);
+
+        const response = await fetch(baseURL + "api/upload", {
+            method: "POST",
+            body: uploadData
+        });
+        const responseData = await response.json();
+
+        return baseURL + responseData.data.imgdata;
+    }
+
     createNewItem() {
-        var newItem = new entities.MediaItem("", "");
+        const newItem = new entities.MediaItem("", "");
         this.showDialog("mediaItemDialog", {
             item: newItem,
             actionBindings: {
@@ -82,18 +97,7 @@ export default class ListviewViewController extends mwf.ViewController {
                     event.original.preventDefault();
 
                     if (newItem.remote) {
-                        const uploadData = new FormData();
-                        uploadData.append("imgdata", newItem.imgFile);
-
-                        const response = await fetch("http://localhost:7077/api/upload", {
-                            method: "POST",
-                            body: uploadData
-                        });
-
-                        const responseData = await response.json();
-
-                        newItem.src = "http://localhost:7077/" + responseData.data.imgdata;
-
+                        newItem.src = await this.uploadImageToRemoteStorage(newItem.imgFile);
                     } else {
                         const fsHandler = await LocalFileSystemReferenceHandler.getInstance();
                         newItem.src = await fsHandler.resolveLocalFileSystemReference(newItem.src);
@@ -145,8 +149,11 @@ export default class ListviewViewController extends mwf.ViewController {
         this.showDialog("mediaItemDialog", {
             item: item,
             actionBindings: {
-                submitForm: ((event) => {
+                submitForm: (async (event) => {
                     event.original.preventDefault();
+                    console.log("updated itemzz: ", item);
+                    const oldItem = await entities.MediaItem.read(item._id)
+                    console.log("old itemzz: ", oldItem);
                     item.update().then(() => {
                         this.updateInListview(item._id, item)
                     });
