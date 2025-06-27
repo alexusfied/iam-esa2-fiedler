@@ -151,11 +151,15 @@ export default class ListviewViewController extends mwf.ViewController {
             actionBindings: {
                 submitForm: (async (event) => {
                     event.original.preventDefault();
-                    console.log("updated itemzz: ", item);
-                    const oldItem = await entities.MediaItem.read(item._id)
-                    console.log("old itemzz: ", oldItem);
+
+                    // This is not nice, because the image is always uploaded. There has to be a way to check if the
+                    // image changed and only upload it in that case
+                    if (item.remote) {
+                        item.src = await this.uploadImageToRemoteStorage(item.imgFile);
+                    }
+
                     item.update().then(() => {
-                        this.updateInListview(item._id, item)
+                        this.updateInListview(item._id, item);
                     });
                     this.hideDialog();
                 }),
