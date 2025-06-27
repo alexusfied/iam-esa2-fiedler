@@ -116,7 +116,7 @@
             </fieldset>
             <fieldset class="mwf-material">
                 <label for="remoteSaveCheckbox" class="mwf-left-align">Remote speichern</label>
-                <input type="checkbox" checked="{{item.remote}}" id="remoteSaveCheckbox" class="mwf-left-align">
+                <input type="checkbox" checked="{{item.remote}}" id="remoteSaveCheckbox" class="mwf-left-align" disabled="{{#unless !item.created}}disabled{{/unless}}">
             </fieldset>
             <div class="img-upload-placeholder">
                 {{#if item.src}}
