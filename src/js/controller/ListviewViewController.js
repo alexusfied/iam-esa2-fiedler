@@ -12,7 +12,6 @@ export default class ListviewViewController extends mwf.ViewController {
     // instance attributes set by mwf after instantiation
     args;
     root;
-    // TODO-REPEATED: declare custom instance attributes for this controller
     items;
     addNewMediaItemElement;
 
@@ -20,7 +19,6 @@ export default class ListviewViewController extends mwf.ViewController {
      * for any view: initialise the view
      */
     async oncreate() {
-        // TODO: do databinding, set listeners, initialise the view
         this.addNewMediaItemElement = this.root.querySelector("#addNewMediaItem");
 
         this.root.querySelector("#allItemsFilter").checked = true;
@@ -67,17 +65,6 @@ export default class ListviewViewController extends mwf.ViewController {
     onListItemMenuItemSelected(menuitemview, itemobj, listview) {
         // TODO: implement how selection of the option menuitemview for itemobj shall be handled
         super.onListItemMenuItemSelected(menuitemview, itemobj, listview);
-    }
-
-    /*
-     * for views with dialogs
-     * TODO: delete if no dialogs are used or if generic controller for dialogs is employed
-     */
-    bindDialog(dialogid, dialogview, dialogdataobj) {
-        // call the supertype function
-        super.bindDialog(dialogid, dialogview, dialogdataobj);
-
-        // TODO: implement action bindings for dialog, accessing dialog.root
     }
 
     onMediaItemFilterChanged(targetRadioButton) {
@@ -140,7 +127,6 @@ export default class ListviewViewController extends mwf.ViewController {
 
                     delete newItem.imgFile;
                     newItem.create().then(() => {
-                        console.log("Item created", newItem);
                         this.addToListview(newItem);
                     });
                     this.hideDialog();
