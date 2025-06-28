@@ -126,11 +126,13 @@
                 <legend>Titel</legend>
                 <input name="title" autocomplete="off" class="mwf-autofocus file-input" type="text" required="required" value="{{item.title}}" id="mediaItemTitle">
                 <input class="mwf-material-altinput" on-change="fileSelected" type="file" id="fileInput">
-                <label class="mwf-material-altinput mwf-imgbutton mwf-img-camera" for="fileInput"></label>
+                <label class="mwf-material-altinput mwf-imgbutton mwf-img-camera" for="fileInput" id="img-selection-icon"></label>
             </fieldset>
-            <fieldset class="mwf-material">
-                <label for="remoteSaveCheckbox" class="mwf-left-align">Remote speichern</label>
-                <input type="checkbox" checked="{{item.remote}}" id="remoteSaveCheckbox" class="mwf-left-align" disabled="{{#unless !item.created}}disabled{{/unless}}">
+            <fieldset class="remote-save-img-checkbox-fieldset">
+                <div class="remote-save-img-checkbox-container">
+                    <label for="remoteSaveCheckbox" class="remote-save-img-checkbox-label">Remote speichern</label>
+                    <input type="checkbox" checked="{{item.remote}}" id="remoteSaveCheckbox" class="remote-save-img-checkbox" disabled="{{#unless !item.created}}disabled{{/unless}}">
+                </div>
             </fieldset>
             <div class="img-upload-placeholder">
                 {{#if item.src}}

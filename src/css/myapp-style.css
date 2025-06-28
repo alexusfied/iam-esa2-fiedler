@@ -73,3 +73,27 @@ header h1 {
     height: 30px;
     margin-left: 5px;
 }
+
+.remote-save-img-checkbox-fieldset {
+    border: none;
+}
+
+.remote-save-img-checkbox-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#img-selection-icon {
+    filter: invert(20%);
+    cursor: pointer;
+}
+
+.remote-save-img-checkbox-label {
+    color: black;
+}
+
+.remote-save-img-checkbox {
+    position: absolute;
+    left: 20px;
+}
